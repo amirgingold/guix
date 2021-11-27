@@ -1,16 +1,18 @@
-#!/bin/sh
+is_not_vm=$(dmesg | grep 'Hypervisor detected' | wc -l)
 
-if dmesg | grep 'Hypervisor detected'; then # It's a vm
-  device=/dev/sda
-  boot_partition="$device"1
-  swap_partition="$device"2
-  root_partition="$device"3
-else
+if test $is_not_vm; then
   device=/dev/nvme0n1
   boot_partition="$device"p1
   swap_partition="$device"p2
   root_partition="$device"p3
+else
+  device=/dev/sda
+  boot_partition="$device"1
+  swap_partition="$device"2
+  root_partition="$device"3
 fi
+
+exit
 
 # Wiping
 sgdisk -Z "$device"
@@ -32,10 +34,15 @@ mount "$boot_partition" /mnt/boot
 
 # Installing
 herd start cow-store /mnt
-mkdir -p ~/.config/guix
-cp channels.scm ~/.config/guix
+mkdir -p /root/.config/guix
+wget https://github.com/amirgingold/guix/raw/main/channels.scm --directory-prefix=/root/.config/guix
 guix pull
 hash guix
 mkdir /mnt/etc
-cp config.scm /mnt/etc/
+if test $is_not_vm; then
+  wget https://github.com/amirgingold/guix/raw/main/config.scm --directory-prefix=/mnt/etc/
+else
+  wget https://github.com/amirgingold/guix/raw/main/config-vm.scm --directory-prefix=/mnt/etc/
+fi
 guix system init /mnt/etc/config.scm /mnt
+
