@@ -1,11 +1,7 @@
-(use-modules (gnu))
+(use-modules (gnu)
+	     (nongnu packages linux)
+	     (nongnu system linux-initrd))
 (use-service-modules desktop networking ssh xorg)
-
-(define handle-root-stuff
-  (program-file "handle-root-stuff"
-		#~(begin
-		    (let ((me (getpwnam "me")))
-		      (chown "/mnt/backup" (passwd:uid me) (passwd:gid me))))))
 
 (operating-system
   (host-name "guix")
@@ -19,21 +15,17 @@
   
   (bootloader
     (bootloader-configuration
-    (bootloader grub-efi-bootloader)
-    (target "/boot")))
+      (bootloader grub-efi-bootloader)
+      (target "/boot")))
   (file-systems
     (append (list
               (file-system
-                (device (file-system-label "my-boot"))
+                (device (file-system-label "BOOT"))
                 (mount-point "/boot")
                 (type "vfat"))
               (file-system
-                (device (file-system-label "my-root"))
+                (device (file-system-label "ROOT"))
                 (mount-point "/")
-                (type "ext4"))
-              (file-system
-                (device (file-system-label "workspace"))
-                (mount-point "/mnt/workspace")
                 (type "ext4")))
             %base-file-systems))
   (users (cons
@@ -54,5 +46,4 @@
                       (specification->package "emacs-desktop-environment")
                       (specification->package "nss-certs"))
                     %base-packages))
-  (setuid-programs (cons handle-root-stuff %setuid-programs))
   (services %desktop-services))
