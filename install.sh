@@ -50,7 +50,7 @@ herd start cow-store /mnt
 mkdir -p /root/.config/guix
 wget https://github.com/amirgingold/guix/raw/main/channels.scm --directory-prefix=/root/.config/guix
 guix pull
-xfhash guix
+hash guix
 mkdir /mnt/etc
 if is_vm; then
   wget https://github.com/amirgingold/guix/raw/main/config-vm.scm --output-document=/mnt/etc/config.scm
