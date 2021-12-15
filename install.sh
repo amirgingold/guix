@@ -53,8 +53,8 @@ guix pull
 xfhash guix
 mkdir /mnt/etc
 if is_vm; then
-  wget https://github.com/amirgingold/guix/raw/main/config-vm.scm --directory-prefix=/mnt/etc/
+  wget https://github.com/amirgingold/guix/raw/main/config-vm.scm --output-document=/mnt/etc/config.scm
 else
-  wget https://github.com/amirgingold/guix/raw/main/config.scm --directory-prefix=/mnt/etc/
+  wget https://github.com/amirgingold/guix/raw/main/config.scm --output-document=/mnt/etc/config.scm
 fi
 guix system init /mnt/etc/config.scm /mnt
