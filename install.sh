@@ -1,32 +1,34 @@
-is_not_vm=$(dmesg | grep 'Hypervisor detected' | wc -l)
+is_vm () { dmesg | grep 'Hypervisor detected'; }
 
-if test $is_not_vm; then
-  device=/dev/nvme0n1
-    
-  boot_partition="$device"p1
-  swap_partition="$device"p2
-  root_partition="$device"p3
-
-  # Wiping
-  sgdisk -Z "$device"
-  
-  # Partitioning
-  sgdisk "$device" --new=1:0:+1G  --typecode=1:ef00
-  sgdisk "$device" --new=2:0:+10G --typecode=2:8200
-  sgdisk "$device" --new=3:0:0    --typecode=3:8304
-else
+if is_vm; then
   device=/dev/sda
+else
+  device=/dev/nvme0n1
+fi
 
+# Wiping
+wipefs -a "$device"
+
+if is_vm; then
   boot_partition="$device"1
   swap_partition="$device"2
   root_partition="$device"3
 
   # Partitioning
-  sfdisk /dev/sda << EOF
+  sfdisk "$device" << EOF
     ,1G,83
     ,10G,82
     ,,
   EOF
+else
+  boot_partition="$device"p1
+  swap_partition="$device"p2
+  root_partition="$device"p3
+
+  # Partitioning
+  sgdisk "$device" --new=1:0:+1G  --typecode=1:ef00
+  sgdisk "$device" --new=2:0:+10G --typecode=2:8200
+  sgdisk "$device" --new=3:0:0    --typecode=3:8304
 fi
 
 # Formatting
@@ -50,9 +52,9 @@ wget https://github.com/amirgingold/guix/raw/main/channels.scm --directory-prefi
 guix pull
 xfhash guix
 mkdir /mnt/etc
-if test $is_not_vm; then
-  wget https://github.com/amirgingold/guix/raw/main/config.scm --directory-prefix=/mnt/etc/
-else
+if is_vm; then
   wget https://github.com/amirgingold/guix/raw/main/config-vm.scm --directory-prefix=/mnt/etc/
+else
+  wget https://github.com/amirgingold/guix/raw/main/config.scm --directory-prefix=/mnt/etc/
 fi
 guix system init /mnt/etc/config.scm /mnt
