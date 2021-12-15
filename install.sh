@@ -1,4 +1,4 @@
-is_vm () { dmesg | grep 'Hypervisor detected'; }
+is_vm () { dmesg | grep -q 'Hypervisor detected'; }
 
 if is_vm; then
   device=/dev/sda
@@ -16,10 +16,10 @@ if is_vm; then
 
   # Partitioning
   sfdisk "$device" << EOF
-    ,1G,83
-    ,10G,82
-    ,,
-  EOF
+,1G,83
+,10G,82
+,,
+EOF
 else
   boot_partition="$device"p1
   swap_partition="$device"p2
