@@ -32,7 +32,7 @@ else
 fi
 
 # Formatting
-mkfs.fat -F32 "$boot_partition" 
+mkfs.fat -F32 "$boot_partition"
 mkswap "$swap_partition"; swapon "$swap_partition"
 mkfs.ext4 -F -F "$root_partition"
 

@@ -15,7 +15,7 @@
   
   (bootloader
     (bootloader-configuration
-      (bootloader grub-efi-bootloader)
+      (bootloader grub-bootloader) ;; (bootloader grub-efi-bootloader)
       (target "/boot")))
   (file-systems
     (append (list
