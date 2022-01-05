@@ -51,10 +51,10 @@ mkdir -p /root/.config/guix
 wget https://github.com/amirgingold/guix/raw/main/channels.scm --directory-prefix=/root/.config/guix
 guix pull
 hash guix
-mkdir /mnt/etc
+
 if is_vm; then
-  wget https://github.com/amirgingold/guix/raw/main/config-vm.scm --output-document=/mnt/etc/config.scm
+  wget https://github.com/amirgingold/guix/raw/main/config-vm.scm --output-document=config.scm
 else
-  wget https://github.com/amirgingold/guix/raw/main/config.scm --output-document=/mnt/etc/config.scm
+  wget https://github.com/amirgingold/guix/raw/main/config.scm
 fi
-guix system init /mnt/etc/config.scm /mnt
+guix system init config.scm /mnt

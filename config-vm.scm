@@ -2,6 +2,7 @@
 	     (nongnu packages linux)
 	     (nongnu system linux-initrd))
 (use-service-modules desktop networking ssh xorg)
+(use-service-modules nix)
 
 (operating-system
   (host-name "guix")
@@ -46,4 +47,4 @@
                       (specification->package "emacs-desktop-environment")
                       (specification->package "nss-certs"))
                     %base-packages))
-  (services %desktop-services))
+  (services (cons* (service nix-service-type) %desktop-services)))
