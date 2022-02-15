@@ -1,5 +1,8 @@
-(use-modules (gnu))
+(use-modules (gnu)
+    	     (nongnu packages linux)
+	     (nongnu system linux-initrd))
 (use-service-modules desktop networking ssh xorg)
+(use-service-modules nix)
 
 (define handle-root-stuff
   (program-file "handle-root-stuff"
@@ -19,20 +22,20 @@
   
   (bootloader
     (bootloader-configuration
-    (bootloader grub-efi-bootloader)
-    (target "/boot")))
+      (bootloader grub-efi-bootloader)
+      (target "/boot")))
   (file-systems
     (append (list
               (file-system
-                (device (file-system-label "my-boot"))
+                (device (file-system-label "BOOT"))
                 (mount-point "/boot")
                 (type "vfat"))
               (file-system
-                (device (file-system-label "my-root"))
+                (device (file-system-label "ROOT"))
                 (mount-point "/")
                 (type "ext4"))
               (file-system
-                (device (file-system-label "backup"))
+                (device (file-system-label "BACKUP"))
                 (mount-point "/mnt/backup")
                 (type "ext4")))
             %base-file-systems))
@@ -55,4 +58,4 @@
                       (specification->package "nss-certs"))
                     %base-packages))
   (setuid-programs (cons handle-root-stuff %setuid-programs))
-  (services %desktop-services))
+  (services (cons* (service nix-service-type) %desktop-services)))
