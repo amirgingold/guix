@@ -37,8 +37,8 @@ mkswap "$swap_partition"; swapon "$swap_partition"
 mkfs.ext4 -F -F "$root_partition"
 
 # Labeling
-fatlabel /dev/sda1 BOOT
-e2label /dev/sda3 ROOT
+fatlabel "$boot_partition"1 BOOT
+e2label "$root_partition"3 ROOT
 
 # Mounting
 mount "$root_partition" /mnt
