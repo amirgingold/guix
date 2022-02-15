@@ -11,12 +11,12 @@ if !is_vm; then
   sgdisk -z "$device"
 fi
 
+# Partitioning
 if is_vm; then
   boot_partition="$device"1
   swap_partition="$device"2
   root_partition="$device"3
-
-  # Partitioning
+  
   sfdisk "$device" << EOF
 ,1G,83
 ,10G,82
@@ -27,7 +27,6 @@ else
   swap_partition="$device"p2
   root_partition="$device"p3
 
-  # Partitioning
   sgdisk "$device" --new=1:0:+1G  --typecode=1:ef00
   sgdisk "$device" --new=2:0:+10G --typecode=2:8200
   sgdisk "$device" --new=3:0:0    --typecode=3:8304
