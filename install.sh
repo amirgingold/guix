@@ -7,8 +7,9 @@ else
 fi
 
 # Wiping
-# wipefs -a "$device"
-sgdisk -z "$device"
+if !is_vm; then
+  sgdisk -z "$device"
+fi
 
 if is_vm; then
   boot_partition="$device"1
