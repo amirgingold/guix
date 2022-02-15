@@ -7,7 +7,8 @@ else
 fi
 
 # Wiping
-wipefs -a "$device"
+# wipefs -a "$device"
+sfdisk --delete "$device"
 
 if is_vm; then
   boot_partition="$device"1
