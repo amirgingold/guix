@@ -7,7 +7,7 @@ else
 fi
 
 # Wiping
-if !is_vm; then
+if ! is_vm; then
   sgdisk -z "$device"
 fi
 
