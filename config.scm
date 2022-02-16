@@ -34,11 +34,10 @@
                 (device (file-system-label "ROOT"))
                 (mount-point "/")
                 (type "ext4"))
-;;              (file-system
-;;                (device (file-system-label "BACKUP"))
-;;                (mount-point "/mnt/backup")
-;;                (type "ext4"))
-	     )
+              (file-system
+                (device (file-system-label "BACKUP"))
+                (mount-point "/mnt/backup")
+                (type "ext4")))
             %base-file-systems))
   (users (cons
            (user-account
