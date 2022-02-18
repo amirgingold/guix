@@ -17,11 +17,11 @@ guix install ungoogled-chromium
 # Settings -> Autofill -> Passwords
 
 # Flatpak apps
-guix install flatpak
-flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# guix install flatpak
+# flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Zoom
-flatpak install --user --assumeyes --noninteractive flathub us.zoom.Zoom
+# flatpak install --user --assumeyes --noninteractive flathub us.zoom.Zoom
 
 # Skype
-flatpak install --user --assumeyes --noninteractive flathub com.skype.Client
+# flatpak install --user --assumeyes --noninteractive flathub com.skype.Client
