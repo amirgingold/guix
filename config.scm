@@ -4,11 +4,11 @@
 (use-service-modules desktop networking ssh xorg)
 (use-service-modules nix)
 
-(define handle-root-stuff
-  (program-file "handle-root-stuff"
-		#~(begin
-		    (let ((me (getpwnam "me")))
-		      (chown "/mnt/backup" (passwd:uid me) (passwd:gid me))))))
+;;(define handle-root-stuff
+;;  (program-file "handle-root-stuff"
+;;		#~(begin
+;;		    (let ((me (getpwnam "me")))
+;;		      (chown "/mnt/backup" (passwd:uid me) (passwd:gid me))))))
 
 (operating-system
   (host-name "guix")
@@ -51,11 +51,11 @@
                 (string-join '("root ALL=(ALL) ALL"
                                "%wheel ALL=NOPASSWD: ALL") "\n")))
   (packages (append (list
-                      (specification->package "git")		     
+  ;;                    (specification->package "git")		     
                       (specification->package "emacs")
                       (specification->package "emacs-exwm")
                       (specification->package "emacs-desktop-environment")
                       (specification->package "nss-certs"))
                     %base-packages))
-  (setuid-programs (cons handle-root-stuff %setuid-programs))
+  ;;(setuid-programs (cons handle-root-stuff %setuid-programs))
   (services (cons* (service nix-service-type) %desktop-services)))
