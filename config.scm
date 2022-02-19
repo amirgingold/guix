@@ -2,7 +2,7 @@
     	     (nongnu packages linux)
 	     (nongnu system linux-initrd))
 (use-service-modules desktop networking ssh xorg)
-(use-service-modules nix)
+;;(use-service-modules nix)
 
 ;;(define handle-root-stuff
 ;;  (program-file "handle-root-stuff"
@@ -58,4 +58,5 @@
                       (specification->package "nss-certs"))
                     %base-packages))
   ;;(setuid-programs (cons handle-root-stuff %setuid-programs))
-  (services (cons* (service nix-service-type) %desktop-services)))
+  ;;(services (cons* (service nix-service-type) %desktop-services))
+ )
