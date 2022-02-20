@@ -2,20 +2,13 @@
     	     (nongnu packages linux)
 	     (nongnu system linux-initrd))
 (use-service-modules desktop networking ssh xorg)
-;;(use-service-modules nix)
-
-;;(define handle-root-stuff
-;;  (program-file "handle-root-stuff"
-;;		#~(begin
-;;		    (let ((me (getpwnam "me")))
-;;		      (chown "/mnt/backup" (passwd:uid me) (passwd:gid me))))))
+(use-service-modules virtualization)
 
 (operating-system
   (host-name "guix")
   (timezone "Asia/Jerusalem")
   (locale "en_US.utf8")
   
-;; Use non-free Linux and firmware
   (kernel linux)
   (firmware (list linux-firmware))
   (initrd microcode-initrd)
@@ -23,7 +16,8 @@
   (bootloader
     (bootloader-configuration
       (bootloader grub-efi-bootloader)
-      (target "/boot")))
+      (targets '("/boot"))))
+  
   (file-systems
     (append (list
               (file-system
@@ -39,24 +33,33 @@
                 (mount-point "/mnt/backup")
                 (type "ext4")))
             %base-file-systems))
+  
   (users (cons
            (user-account
              (name "me")
 	     (password "")
              (group "users")
-             (supplementary-groups '("wheel" "netdev" "audio" "video")))
+             (supplementary-groups '("wheel" "netdev" "audio" "video"
+				     "kvm" "libvirt")))
            %base-user-accounts))
+  
   (sudoers-file
     (plain-file "sudoers"
                 (string-join '("root ALL=(ALL) ALL"
                                "%wheel ALL=NOPASSWD: ALL") "\n")))
+  
   (packages (append (list
-  ;;                    (specification->package "git")		     
                       (specification->package "emacs")
                       (specification->package "emacs-exwm")
                       (specification->package "emacs-desktop-environment")
-                      (specification->package "nss-certs"))
+                      (specification->package "nss-certs")
+                      (specification->package "git")
+                      (specification->package "virt-manager"))
                     %base-packages))
-  ;;(setuid-programs (cons handle-root-stuff %setuid-programs))
-  ;;(services (cons* (service nix-service-type) %desktop-services))
- )
+  
+  (services
+    (cons* (service libvirt-service-type
+                    (libvirt-configuration
+                      (unix-sock-group "libvirt")))
+           (service virtlog-service-type)
+           %desktop-services)))
