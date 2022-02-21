@@ -29,8 +29,8 @@
                 (mount-point "/")
                 (type "ext4"))
               (file-system
-                (device (file-system-label "BACKUP"))
-                (mount-point "/mnt/backup")
+                (device (file-system-label "EXTERN"))
+                (mount-point "/mnt/extern")
                 (type "ext4")))
             %base-file-systems))
   
