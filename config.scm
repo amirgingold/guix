@@ -3,6 +3,7 @@
 	     (nongnu system linux-initrd))
 (use-service-modules desktop networking ssh xorg)
 (use-service-modules virtualization)
+(use-service-modules nix)
 
 (operating-system
   (host-name "guix")
@@ -54,12 +55,19 @@
                       (specification->package "emacs-desktop-environment")
                       (specification->package "nss-certs")
                       (specification->package "git")
+		      (specification->package "nix")
+		      (specification->package "xhost")
                       (specification->package "virt-manager"))
                     %base-packages))
   
-  (services
-    (cons* (service libvirt-service-type
-                    (libvirt-configuration
-                      (unix-sock-group "libvirt")))
-           (service virtlog-service-type)
-           %desktop-services)))
+  (services (cons* (service libvirt-service-type
+                            (libvirt-configuration
+                              (unix-sock-group "libvirt")))
+                   (service virtlog-service-type)
+		   (service nix-service-type)
+		   (service slim-service-type
+			    (slim-configuration
+			      (auto-login? #t)
+			      (default-user "me")))
+		   (modify-services %desktop-services
+				    (delete gdm-service-type)))))
