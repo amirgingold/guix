@@ -1,5 +1,4 @@
 #is_vm () { dmesg | grep -q 'Hypervisor detected'; }
-#Just another comment
 
 device=/dev/nvme0n1
 
