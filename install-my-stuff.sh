@@ -50,6 +50,6 @@ nix-channel --update
 #     Go to the chrome web store and install:
 #       Chrome Remote Desktop
 #       Ublock Origin
-#   Settings -> Seach engine
-#   Settings -> Autofill -> Passwords
-#   Settings -> Security and Privacy -> Cookies and other site data -> Clear cookies and site data when you close all windows
+#   Settings -> Search engine
+#   Settings -> Autofill -> Passwords: Toggle Offer to save passwords
+#   Settings -> Privacy and Security -> Cookies and other site data: Toggle Clear cookies and site data when you close all windows
