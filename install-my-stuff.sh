@@ -15,7 +15,7 @@ ln -s /mnt/extern extern
 # Git
 git config --global user.name amirgingold
 git config --global user.email amirgingold@gmail.com
-git config --global credentials.helper store
+git config --global credential.helper store
 
 # Regenerate personal access token
 # When commiting to github, credentials are: username and the regenerated token
