@@ -134,6 +134,7 @@
 
 ;; Thanks, but no thanks
 (setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
