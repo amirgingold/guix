@@ -25,6 +25,7 @@ git config --global credentials.helper store
 ############
 
 guix install ungoogled-chromium \
+             emacs-zenburn-theme \
              gnome-icon-theme \
              xournalpp
 
