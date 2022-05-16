@@ -24,10 +24,12 @@ git config --global credential.helper store
 # Packages #
 ############
 
-guix install ungoogled-chromium \
-             emacs-zenburn-theme \
-             gnome-icon-theme \
-             xournalpp
+guix install \
+     ungoogled-chromium \
+     emacs-zenburn-theme \
+     emacs-no-littering \
+     gnome-icon-theme \
+     xournalpp
 
 # nixpkgs
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
