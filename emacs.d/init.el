@@ -83,7 +83,7 @@
 ;;;;;;;;;;;;;;;;;;;;
 
 ;; Add my library path to load-path
-(push (expand-file-name "~/.dotfiles/.emacs.d/lisp") load-path)
+(push (expand-file-name "~/.guix/emacs.d/lisp") load-path)
 
 ;; Add packages locations
 (let ((default-directory "/home/me/.guix-profile/share/emacs/site-lisp/"))
@@ -115,4 +115,4 @@
 
 (require 'my-desktop)
 
-
+(setup (:pkg zenburn-theme))
