@@ -20,6 +20,13 @@ git config --global credential.helper store
 # Regenerate personal access token
 # When commiting to github, credentials are: username and the regenerated token
 
+# Setting libvirt networking -weird it's not working-
+sudo mkdir -p /usr/share/libvirt/networks
+sudo cp ~/.guix/networking/default.xml /usr/share/libvirt/networks
+sudo virsh net-define /usr/share/libvirt/networks/default.xml
+sudo virsh net-autostart default
+sudo virsh net-start default
+
 ############
 # Packages #
 ############
