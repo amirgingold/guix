@@ -32,9 +32,10 @@ sudo virsh net-start default
 ############
 
 guix install \
-     ungoogled-chromium \
      emacs-zenburn-theme \
      emacs-no-littering \
+     alsa-utils \
+     ungoogled-chromium \
      gnome-icon-theme \
      xournalpp
 

@@ -201,3 +201,9 @@
 
 ;; Use spaces instead of tabs for indentation
 (setq-default indent-tabs-mode nil)
+
+;;;;;;;;;;;;;;;;;
+;; Shutting Down
+;;;;;;;;;;;;;;;;;
+
+(add-hook 'kill-emacs-hook (lambda () (shell-command "sudo shutdown") t))
