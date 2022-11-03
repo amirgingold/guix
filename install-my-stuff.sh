@@ -35,7 +35,6 @@ guix install \
      emacs-zenburn-theme \
      emacs-no-littering \
      alsa-utils \
-     ungoogled-chromium \
      gnome-icon-theme \
      xournalpp
 
@@ -63,3 +62,9 @@ nix-channel --update
 #   Settings -> Search engine
 #   Settings -> Autofill -> Passwords: Toggle Offer to save passwords
 #   Settings -> Privacy and Security -> Cookies and other site data: Toggle Clear cookies and site data when you close all windows
+
+#############
+# EPSON PERFECTION V500
+#  Go to https://download.ebz.epson.net/dsc/search/01/search/searchModule and download the relevant driver.
+#  Extract the .gz file, cd into the .deb directory and run ./install.sh
+#  Install libcanberra-gtk-module to annihilate a warning: sudo apt-get install libcanberra-gtk-module
