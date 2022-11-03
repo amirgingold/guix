@@ -41,8 +41,8 @@ guix install \
 # nixpkgs
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 nix-channel --update
-
-
+# nix packages
+nix-env -i firefox
 
 # xourallpp depends on gnome-icon-theme
 
