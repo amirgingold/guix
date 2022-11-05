@@ -116,17 +116,18 @@
 
 (set-default-coding-systems 'utf-8)
 
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Desktop Environment
+;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'my-desktop)
+
 ;;;;;;;;;;;;;;;
 ;; Server Mode
 ;;;;;;;;;;;;;;;
 
 (server-start)
 
-;;;;;;;;;;;;;;;;;;;;;;;
-;; Desktop Environment
-;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'my-desktop)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General Configuration

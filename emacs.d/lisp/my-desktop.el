@@ -56,6 +56,7 @@
 	;; search
 	([?\C-s] . [?\C-f])))
 
+
 ;;;;;;;;;;;;;;;;;
 ;; Input Methods
 ;;;;;;;;;;;;;;;;;
@@ -67,6 +68,6 @@
 (setenv "CLUTTER_IM_MODULE" "xim")
 (require 'exwm-xim)
 (exwm-xim-enable)
-(push ?\C-\\ exwm-input-prefix-keys) ;; use Ctrl + \ to switch input method
+(push ?\C-\\ exwm-input-prefix-keys) ;; use Ctrl + \ to toggle between input methods
 
 (provide 'my-desktop)
