@@ -19,7 +19,7 @@
  (firmware (list linux-firmware))
  (initrd microcode-initrd)
 
- (keyboard-layout (keyboard-layout "us,il" #:options '("grp:alts_toggle" "grp:toggle")))
+ (keyboard-layout (keyboard-layout "us,il" #:options '("grp:shifts_toggle" "grp_led:num")))
  ;;  (keyboard-layout (keyboard-layout "us,il" #:options '("grp:alts_toggle" "grp:toggle") #:model "pc105"))
  
  (bootloader

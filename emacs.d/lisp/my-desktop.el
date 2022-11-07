@@ -23,7 +23,7 @@
 ;; Keybindings
 ;;;;;;;;;;;;;;;
 
-;; Ctrl+Q will enable the next key to be sent directly.
+;; Ctrl+q will enable the next key to be sent directly.
 (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
 
 (setq exwm-input-global-keys
