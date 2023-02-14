@@ -282,7 +282,6 @@
 (setup (:pkg make :guix make))
 (setup (:pkg texinfo :guix texinfo))
 (setup (:pkg evince :guix evince))
-(setup (:pkg zathura :guix zathura))
 (setup (:pkg font-culmus :guix font-culmus))
 (setup (:pkg auctex)
   (me/add-pkg-to-path "auctex")
