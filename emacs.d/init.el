@@ -4,8 +4,12 @@
 ;; Startup Performance
 ;;;;;;;;;;;;;;;;;;;;;;;
 
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+;;; Speed up init.
+;;; Temporarily reduce garbage collection during startup. Inspect `gcs-done'.
+(defun my/reset-gc-cons-threshold ()
+  (setq gc-cons-threshold (car (get 'gc-cons-threshold 'standard-value))))
+(setq gc-cons-threshold (* 64 1024 1024))
+(add-hook 'after-init-hook 'my/reset-gc-cons-threshold)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; System Settings
@@ -106,7 +110,7 @@
 ;; Keep customization settings in a temporary file (thanks Ambrevar!)
 (setq custom-file
       (if (boundp 'server-socket-dir)
-          (expand-file-name "custom.el" server-socket-dir)
+          (expand-file-name "custom.el" server-socket-dir)        
         (expand-file-name (format "emacs-custom-%s.el" (user-uid)) temporary-file-directory)))
 (load custom-file t)
 
@@ -293,15 +297,9 @@
   (setq-default TeX-PDF-mode t)
   (setq-default TeX-master nil))
 
-  
-
-
 
 ;;;;;;;;;;;;;;;;;
 ;; Shutting Down
 ;;;;;;;;;;;;;;;;;
 
 (add-hook 'kill-emacs-hook (lambda () (shell-command "sudo shutdown") t))
-
-
-
