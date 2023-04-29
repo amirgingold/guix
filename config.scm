@@ -3,7 +3,8 @@
     	       (nongnu packages linux)
 	           (nongnu system linux-initrd))
 (use-service-modules
- desktop networking ssh xorg virtualization nix)
+ desktop networking ssh xorg virtualization)
+;; (use-service-modules nix)
 
 (operating-system
  (host-name "guix")
@@ -20,13 +21,13 @@
  (initrd microcode-initrd)
 
  (keyboard-layout (keyboard-layout "us,il" #:options '("grp:shifts_toggle" "grp_led:num")))
- ;;  (keyboard-layout (keyboard-layout "us,il" #:options '("grp:alts_toggle" "grp:toggle") #:model "pc105"))
  
  (bootloader
   (bootloader-configuration
    (bootloader grub-efi-bootloader)
    (targets '("/boot"))
-   (keyboard-layout keyboard-layout)))
+   (keyboard-layout keyboard-layout)
+   (timeout 3)))
  
  (file-systems
   (append (list
@@ -64,7 +65,7 @@
                     (specification->package "emacs-desktop-environment")
                     (specification->package "nss-certs")
                     (specification->package "git")
-		                (specification->package "nix")
+;;		                (specification->package "nix")
 		                (specification->package "xhost")
                     (specification->package "virt-manager"))
                    %base-packages))
@@ -73,7 +74,7 @@
                            (libvirt-configuration
                             (unix-sock-group "libvirt")))
                   (service virtlog-service-type)
-            		  (service nix-service-type)
+;;            		  (service nix-service-type)
             		  (service slim-service-type
           			           (slim-configuration
                             (auto-login? #t)

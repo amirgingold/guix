@@ -1,0 +1,1 @@
+(specifications->manifest '(font-culmus evince texinfo make ghostscript texlive bear clang))

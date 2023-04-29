@@ -1,18 +1,4 @@
-# Updates
-cd ~
-mkdir .config/guix
-cd .config/guix
-wget https://github.com/amirgingold/guix/raw/main/channels.scm
-cd ~
-guix pull
-
-git clone https://github.com/amirgingold/guix .guix
-ln -s ~/.guix/xsession .xsession
-ln -s ~/.guix/profile .profile
-ln -s ~/.guix/emacs.d/init.el .emacs.d/init.el
-ln -s /mnt/extern extern
-
-# Git
+# Configuring Git
 git config --global user.name amirgingold
 git config --global user.email amirgingold@gmail.com
 git config --global credential.helper store
@@ -20,29 +6,67 @@ git config --global credential.helper store
 # Regenerate personal access token
 # When commiting to github, credentials are: username and the regenerated token
 
-# Setting libvirt networking -weird it's not working-
+# Cloning my repo
+git clone https://github.com/amirgingold/guix .guix
+
+# Symlinking dotfiles
+ln -s ~/.guix/xsession .xsession
+ln -s ~/.guix/profile .profile
+ln -s ~/.guix/emacs.d/init.el .emacs.d/init.el
+ln -s ~/.guix/emacs.d/early-init.el .emacs.d/early-init.el
+
+# Symlinking my external drive
+ln -s /mnt/extern extern
+
+# Symlinking channels and pulling
+mkdir .config/guix
+ln -s ~/.guix/channels.scm ~/.config/guix/channels.scm
+guix pull
+
+# Downloading emacs sources
+mkdir src
+cd src
+emacs_version="$(emacs --version | grep -oE '^GNU Emacs [[:digit:]]{1,}(\.[[:digit:]]{1,})*' | cut -c11-)"
+emacs_file=emacs-$emacs_version.tar.xz
+wget mirror.rabisu.com/gnu/emacs/$emacs_file
+tar -axvf $emacs_file
+rm $emacs_file
+cd ..
+
+# Setting libvirt networking --weird it's not working--
 sudo mkdir -p /usr/share/libvirt/networks
 sudo cp ~/.guix/networking/default.xml /usr/share/libvirt/networks
 sudo virsh net-define /usr/share/libvirt/networks/default.xml
 sudo virsh net-autostart default
 sudo virsh net-start default
 
+# Installing dependencies
+guix package --manifest=~/.guix/manifest-dependencies.scm
+
+# Installing packages
+guix package --manifest=~/.guix/manifest-packages.scm
+
+
+
 ############
 # Packages #
 ############
 
-guix install \
-     emacs-zenburn-theme \
-     emacs-no-littering \
-     alsa-utils \
-     gnome-icon-theme \
-     xournalpp
+# guix install \
+#      emacs-zenburn-theme \
+#      emacs-no-littering \
+#      alsa-utils \
+#      gnome-icon-theme \
+#      xournalpp
 
-# nixpkgs
-nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-nix-channel --update
-# nix packages
-nix-env -i firefox
+# If nix is needed, then uncomment the region
+# # nixpkgs
+# nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+# nix-channel --update
+# # nix packages
+# nix-env -i firefox
+
+
 
 # xourallpp depends on gnome-icon-theme
 

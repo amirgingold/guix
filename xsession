@@ -11,8 +11,9 @@ if [ -z "$(pgrep -u me shepherd)" ]; then
   shepherd
 fi
 
-# Restoring soundcards settings
-sudo alsactl --file ~/.guix/asound.state restore
+# TODO: Check why this was needed
+## Restoring soundcards settings
+#sudo alsactl --file ~/.guix/asound.state restore
 
 # Uncomment this to start xterm instead for debugging purposes!
 # Then you can manually run the window manager and log output
@@ -20,5 +21,6 @@ sudo alsactl --file ~/.guix/asound.state restore
 #xterm
 
 # Fire it up
-exec dbus-launch --exit-with-session emacs --debug-init
+#exec dbus-launch --exit-with-session emacs --debug-init
+exec dbus-launch --exit-with-session emacs -mm --debug-init --use-exwm
 

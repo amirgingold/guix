@@ -1,6 +1,6 @@
 (require 'map) ;; Needed for map-merge
 
-(setq dw/system-settings
+(setq my/system-settings
   (map-merge
     'list
     '((desktop/dpi . 180)

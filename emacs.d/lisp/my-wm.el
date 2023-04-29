@@ -1,23 +1,26 @@
 
 ;; (load-file "~/.emacs.d/per-system-settings.el")
 
-(setup (:pkg exwm)
-    (setq mouse-autoselect-window nil
-          focus-follows-mouse t)
+;;  (setup (:pkg exwm) ;; Should be uncommented when setup is defined
 
-    (setq exwm-workspace-warp-cursor nil)
+(setq mouse-autoselect-window nil
+      focus-follows-mouse t)
+
+(setq exwm-workspace-warp-cursor nil)
 	  
-    ;; Make class name the buffer name.
-    (add-hook 'exwm-update-class-hook
-        (lambda ()
-          (exwm-workspace-rename-buffer exwm-class-name)))
-    (add-hook 'exwm-update-title-hook
-        (lambda ()
-          (pcase exwm-class-name
-            ("Vimb" (exwm-workspace-rename-buffer (format "vimb: %s" exwm-title)))
-            ("qutebrowser" (exwm-workspace-rename-buffer (format "Qutebrowser: %s" exwm-title))))))
+;; Make class name the buffer name.
+(add-hook 'exwm-update-class-hook
+	  (lambda ()
+	    (exwm-workspace-rename-buffer exwm-class-name)))
+(add-hook 'exwm-update-title-hook
+	  (lambda ()
+	    (pcase exwm-class-name
+	      ("Vimb" (exwm-workspace-rename-buffer (format "vimb: %s" exwm-title)))
+	      ("qutebrowser" (exwm-workspace-rename-buffer (format "Qutebrowser: %s" exwm-title))))))
 
-    (exwm-enable))
+(exwm-enable)
+
+;;    ) ;; Should be uncommented when setup is defined
 
 ;;;;;;;;;;;;;;;
 ;; Keybindings
@@ -56,7 +59,6 @@
 	;; search
 	([?\C-s] . [?\C-f])))
 
-
 ;;;;;;;;;;;;;;;;;
 ;; Input Methods
 ;;;;;;;;;;;;;;;;;
@@ -70,4 +72,5 @@
 (exwm-xim-enable)
 (push ?\C-\\ exwm-input-prefix-keys) ;; use Ctrl + \ to toggle between input methods
 
-(provide 'my-desktop)
+
+(provide 'my-wm)

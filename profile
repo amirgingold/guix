@@ -2,10 +2,10 @@
 GUIX_PROFILE="$HOME/.guix-profile"
 . "$GUIX_PROFILE"/etc/profile
 
-# Load Nix environment
-if [ -f /run/current-system/profile/etc/profile.d/nix.sh ]; then
-  . /run/current-system/profile/etc/profile.d/nix.sh
-fi
+# # Load Nix environment
+# if [ -f /run/current-system/profile/etc/profile.d/nix.sh ]; then
+#   . /run/current-system/profile/etc/profile.d/nix.sh
+# fi
 
 # We're in Emacs, yo
 export VISUAL=emacsclient
