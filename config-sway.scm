@@ -113,6 +113,10 @@
              (file-system
               (device (file-system-label "ROOT"))
               (mount-point "/")
+              (type "ext4"))
+	     (file-system
+              (device (file-system-label "WORKSPACE"))
+              (mount-point "/mnt/W")
               (type "ext4")))
 	    %base-file-systems))
 
