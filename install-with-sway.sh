@@ -36,4 +36,5 @@ guix pull
 hash guix
 
 wget https://github.com/amirgingold/guix/raw/main/config-sway.scm
-guix system init config-sway.scm /mnt
+# guix system init config-sway.scm /mnt
+guix system build config-sway.scm
