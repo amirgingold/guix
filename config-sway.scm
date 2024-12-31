@@ -10,7 +10,8 @@
              (gnu home services mcron)
              (gnu home services shells)
              (gnu home services desktop)
-             (nongnu packages linux))
+             (nongnu packages linux)
+	     (nongnu system linux-initrd))
 
 (use-service-modules desktop guix)
 (use-package-modules bootloaders certs gnuzilla emacs emacs-xyz version-control wm
