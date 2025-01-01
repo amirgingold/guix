@@ -16,7 +16,7 @@
                      password-utils pdf pulseaudio shellutils ssh syncthing video
                      web-browsers wget wm xdisorg xorg emacs)
 
-(define user-name "daviwil")
+(define user-name "me")
 
 (define sway-config
   (map (lambda (str)
@@ -87,9 +87,9 @@
 
 (define os-config
   (operating-system
-    (host-name "crafter")
-    (timezone "Europe/Athens")
-    (locale "en_US.utf8")
+    (host-name "M")
+    (timezone "Asia/Jerusalem")
+    (locale "en_IL.utf8")
 
     (kernel linux)
     (firmware (list linux-firmware))
