@@ -90,7 +90,11 @@
     (host-name "M")
     (timezone "Asia/Jerusalem")
     (locale "en_IL.utf8")
-
+    (locale-definitions
+     (list (locale-definition (source "en_US")
+                              (name "en_US.UTF-8"))
+           (locale-definition (source "he_IL")
+                              (name "he_IL.UTF-8"))))
     (kernel linux)
     (firmware (list linux-firmware))
 
