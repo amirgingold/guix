@@ -1,5 +1,7 @@
 #is_vm () { dmesg | grep -q 'Hypervisor detected'; }
 
+config='config-sway.scm'
+
 device=/dev/nvme0n1
 
 # Wiping
@@ -28,13 +30,17 @@ mount "$root_partition" /mnt
 mkdir /mnt/boot
 mount "$boot_partition" /mnt/boot
 
-# Installing
+# Making /gnu/store copy-on-write
 herd start cow-store /mnt
+
+# Channels pulling
 mkdir -p /root/.config/guix
 wget https://github.com/amirgingold/guix/raw/main/channels.scm --directory-prefix=/root/.config/guix
 guix pull
 hash guix
 
-wget https://github.com/amirgingold/guix/raw/main/config-sway.scm
-# guix system init config-sway.scm /mnt
-guix system build config-sway.scm
+# Installing
+wget https://github.com/amirgingold/guix/raw/main/$config
+mkdir /mnt/etc
+cp $config /mnt/etc/config.scm
+guix system init /mnt/etc/config.scm /mnt
