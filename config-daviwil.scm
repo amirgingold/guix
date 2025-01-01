@@ -95,12 +95,13 @@
                               (name "en_US.UTF-8"))
            (locale-definition (source "he_IL")
                               (name "he_IL.UTF-8"))))
-    (kernel linux)
-    (firmware (list linux-firmware))
+   (keyboard-layout (keyboard-layout "us,il" #:options '("grp:shifts_toggle" "grp_led:num")))
+   (kernel linux)
+   (firmware (list linux-firmware))
 
-    (bootloader (bootloader-configuration
-                 (bootloader grub-efi-bootloader)
-                 (targets '("/boot/efi"))))
+   (bootloader (bootloader-configuration
+                (bootloader grub-efi-bootloader)
+                (targets '("/boot/efi"))))
 
     (mapped-devices
      (list (mapped-device
