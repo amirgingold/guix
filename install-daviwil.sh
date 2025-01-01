@@ -1,6 +1,6 @@
 #is_vm () { dmesg | grep -q 'Hypervisor detected'; }
 
-config='config-sway.scm'
+config='config-daviwil.scm'
 
 device=/dev/nvme0n1
 
