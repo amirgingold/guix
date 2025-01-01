@@ -89,6 +89,7 @@
   (operating-system
     (host-name "M")
     (timezone "Asia/Jerusalem")
+   
     (locale "en_IL.utf8")
     (locale-definitions
      (list (locale-definition (source "en_US")
@@ -96,6 +97,7 @@
            (locale-definition (source "he_IL")
                               (name "he_IL.UTF-8"))))
    (keyboard-layout (keyboard-layout "us,il" #:options '("grp:shifts_toggle" "grp_led:num")))
+   
    (kernel linux)
    (firmware (list linux-firmware))
 
