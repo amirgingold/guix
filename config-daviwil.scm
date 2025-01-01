@@ -101,41 +101,41 @@
    (kernel linux)
    (firmware (list linux-firmware))
 
-   (bootloader (bootloader-configuration
-                (bootloader grub-efi-bootloader)
-                (targets '("/boot/efi"))))
+   (bootloader
+    (bootloader-configuration
+    (bootloader grub-efi-bootloader)
+    (targets '("/boot"))
+    (keyboard-layout keyboard-layout)
+    (timeout 3)))
+   
+   (file-systems
+    (append (list
+           (file-system
+            (device (file-system-label "BOOT"))
+            (mount-point "/boot")
+            (type "vfat"))
+           (file-system
+            (device (file-system-label "ROOT"))
+            (mount-point "/")
+            (type "ext4"))
+           (file-system
+            (device (file-system-label "WORKSPACE"))
+            (mount-point "/mnt/W")
+            (type "ext4")))
+          %base-file-systems))
 
-    (mapped-devices
-     (list (mapped-device
-            (source (uuid "cee84d1e-3918-4148-9aac-ecd4dd1fd04f"))
-            (target "system-root")
-            (type luks-device-mapping))))
+   (users (cons (user-account
+                 (name user-name)
+                 (group "users")
+                 (supplementary-groups '("wheel" "netdev"
+                                         "audio" "video")))
+                %base-user-accounts))
 
-    (file-systems (append
-                   (list (file-system
-                           (device (file-system-label "system-root"))
-                           (mount-point "/")
-                           (type "ext4")
-                           (dependencies mapped-devices))
-                         (file-system
-                           (device (uuid "8A4F-547F" 'fat))
-                           (mount-point "/boot/efi")
-                           (type "vfat")))
-                   %base-file-systems))
+   (services (append (list (service guix-home-service-type
+                                    `((,user-name ,home-config))))
+                     %desktop-services))
 
-    (users (cons (user-account
-                  (name user-name)
-                  (comment "David Wilson")
-                  (group "users")
-                  (supplementary-groups '("wheel" "netdev"
-                                          "audio" "video")))
-                 %base-user-accounts))
-
-    (services (append (list (service guix-home-service-type
-                                     `((,user-name ,home-config))))
-                      %desktop-services))
-
-    ;; Allow resolution of '.local' host names with mDNS.
-    (name-service-switch %mdns-host-lookup-nss)))
+   ;; Allow resolution of '.local' host names with mDNS.
+   (name-service-switch %mdns-host-lookup-nss)))
 
 os-config
