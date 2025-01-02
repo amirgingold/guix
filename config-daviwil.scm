@@ -7,6 +7,7 @@
              (gnu home services mcron)
              (gnu home services shells)
              (gnu home services desktop)
+             (gnu system locale)
              (nongnu packages linux))
 
 (use-service-modules desktop guix)
