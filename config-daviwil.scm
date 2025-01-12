@@ -132,6 +132,37 @@
                                     `((,user-name ,home-config))))
                      %desktop-services))
 
+   (services (append
+              (modify-services %base-services
+                               (delete login-service-type)
+		                          (delete mingetty-service-type)
+		                          (delete console-font-service-type))
+              (list
+               (service greetd-service-type
+                        (greetd-configuration
+                         (greeter-supplementary-groups (list "video" "input"))
+                         (terminals
+                          (list
+                           ;; TTY1 is the graphical login screen for Sway
+                           (greetd-terminal-configuration
+                            (terminal-vt "1")
+                            (terminal-switch #t)
+                            ;; (default-session-command (greetd-wlgreet-sway-session
+                            ;;                           (sway-configuration
+                            ;;                            (plain-file "sway-greet.conf"
+                            ;;                                        "output * bg /home/daviwil/.dotfiles/backgrounds/samuel-ferrara-uOi3lg8fGl4-unsplash.jpg fill\n"))))
+                            ))))))))
+
+	       ;; Set up remaining TTYs for terminal use
+	       (greetd-terminal-configuration (terminal-vt "2"))
+	       (greetd-terminal-configuration (terminal-vt "3"))))))
+
+
+
+   
+
+
+   
    ;; Allow resolution of '.local' host names with mDNS.
    (name-service-switch %mdns-host-lookup-nss)))
 
